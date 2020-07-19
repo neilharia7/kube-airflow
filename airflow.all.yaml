@@ -64,7 +64,7 @@ spec:
       targetPort: flower
       nodePort: 32081
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
@@ -90,7 +90,7 @@ spec:
          - name: POSTGRES_DB
            value: "airflow"
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rabbitmq
@@ -119,7 +119,7 @@ spec:
         - name: RABBITMQ_DEFAULT_VHOST
           value: airflow
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
@@ -149,7 +149,7 @@ spec:
           initialDelaySeconds: 240
           periodSeconds: 60
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flower
@@ -176,7 +176,7 @@ spec:
           containerPort: 5555
         args: ["flower"]
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: scheduler
@@ -199,7 +199,7 @@ spec:
           value: "/usr/local/airflow"
         args: ["scheduler", "-n", "5"]
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: worker
