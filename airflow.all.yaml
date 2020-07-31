@@ -89,6 +89,9 @@ spec:
            value: "airflow"
          - name: POSTGRES_DB
            value: "airflow"
+  selector:
+    matchLabels:
+      app: airflow
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -118,6 +121,9 @@ spec:
           value: airflow
         - name: RABBITMQ_DEFAULT_VHOST
           value: airflow
+  selector:
+    matchLabels:
+      app: airflow
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -147,7 +153,10 @@ spec:
             path: /
             port: 8080
           initialDelaySeconds: 240
-          periodSeconds: 60
+          periodSeconds: 30
+  selector:
+    matchLabels:
+      app: airflow
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -175,6 +184,9 @@ spec:
         - name: flower
           containerPort: 5555
         args: ["flower"]
+  selector:
+    matchLabels:
+      app: airflow
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -197,7 +209,10 @@ spec:
         env:
         - name: AIRFLOW_HOME
           value: "/usr/local/airflow"
-        args: ["scheduler", "-n", "5"]
+        args: ["scheduler"]
+  selector:
+    matchLabels:
+      app: airflow
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -221,3 +236,6 @@ spec:
         - name: AIRFLOW_HOME
           value: "/usr/local/airflow"
         args: ["worker"]
+  selector:
+    matchLabels:
+      app: airflow
